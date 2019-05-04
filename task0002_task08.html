@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="time">
+    <input type="button" value="提交" id="btn">
+    <p id="tishi"></p>
+
+    <script>
+        document.getElementById('btn').onclick = function () {
+            var str = document.getElementById('time').value;
+            date = new Date(str);
+            function time() {
+                nowdate = new Date();
+                var day = Math.round((date - nowdate) / 1000 / 60 / 60 / 24);
+                var house = Math.round((date - nowdate) / 1000 / 60 / 60 % 24);
+                var minue = Math.round((date - nowdate) / 1000 / 60 % 60);
+                var miao = Math.round((date - nowdate) / 1000 % 60);
+                document.getElementById('tishi').innerHTML = "距离" + str + "还有" + day + ":天" + house + "小时" + minue + "分" + miao + "秒";
+            }
+            setInterval(time,1000);
+        }
+    </script>
+</body>
+
+</html>

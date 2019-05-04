@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .waring {
+            color: red;
+            font-size: 16px;
+            font-weight: 700;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <input type="text" id="txt">
+    <input type="button" value="提交" id="btn">
+    <p></p>
+
+    <script src="util.js"></script>
+    <script>
+        document.getElementById('btn').onclick = function () {
+            var strarr = document.getElementById('txt').value.split(',');
+            uniqArray(strarr);
+            while (strarr.indexOf('') != -1) {
+                strarr.splice(strarr.indexOf(''), 1)
+            }
+            document.getElementsByTagName('p')[0].innerHTML=strarr;
+            console.log(strarr);
+        }
+    </script> -->
+
+
+    <textarea name="" id="txt" cols="30" rows="10"></textarea>
+    <p class="waring">输入非法!!!内容不能为空！不能超过10个!!</p>
+    <input type="button" value="提交" id="btn">
+    <p></p>
+
+    <script src="util.js"></script>
+    <script>
+        document.getElementById('btn').onclick=function(){
+            var strarr = document.getElementById('txt').value.split(/[,\s\n，`;]/);
+            uniqArray(strarr);
+            while (strarr.indexOf('') != -1) {
+                strarr.splice(strarr.indexOf(''), 1)
+            }
+            if(document.getElementById('txt').value.length==0||strarr.length>10){
+                document.getElementsByClassName('waring')[0].style.display='block';
+                return;
+            }
+            document.getElementsByClassName('waring')[0].style.display='none';
+            // document.getElementsByTagName('p')[1].innerHTML=strarr;
+            // console.log(strarr);
+            document.getElementsByTagName('p')[1].innerHTML='';
+            for(var i=0;i<strarr.length;i++){
+                document.getElementsByTagName('p')[1].innerHTML+="<label for=''>"+strarr[i]+"<input type='checkbox'></label>&nbsp&nbsp&nbsp&nbsp"
+            }
+        }
+
+        var day=Math.round((date-newdate)/1000/60/60/24); 
+        var house=Math.round((date-newdate)/1000/60/60%24);
+        var minue=Math.round((date-newdate)/1000/60%60);
+        var miao=Math.round((date-newdate)/1000%60);
+    </script>
+</body>
+
+</html>

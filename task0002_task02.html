@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function uniqArray(arr){
+            for(var i=0;i<arr.length;i++){
+                //从后面开始查找看一下找出来的那个元素的下表是否和
+                //当前元素的下标相同，如果不同就表示是另外的一个相同的
+                //元素，那我们就删除那个元素
+                if(arr.lastIndexOf(arr[i])!=i){
+                    //删除那个元素
+                    arr.splice(arr.lastIndexOf(arr[i]),1)
+                    //重新对当前下标进行查找
+                    i--;
+                }
+            }
+            return arr;
+        }
+
+        var arr=[1,3,5,7,5,3,5,5];
+        var b=uniqArray(arr);
+        console.log(b);
+        ////////////////////////////////////////////////////////
+        function simpleTrim(str){
+            var newstr;
+            var i,j;
+            for(i=0;i<str.length;i++){
+                if(str.charAt(i)!=' ')break;
+            }
+            for(j=str.length-1;j>=0;j--){
+                if(str.charAt(j)!=' ')break;
+            }
+            // str.length-(i,str.length-1-j);
+            // str.length-i-str.length+1+j;
+            // j-i+1
+            newstr=str.substr(i,(j-i+1));
+            return newstr;
+        }
+        
+        console.log(simpleTrim('  fw  fwef  '));
+        console.log(simpleTrim('  fw  fwef  ').length);
+        ////////////////////////////////////////////////////////
+        var arr=['java','c','php','html'];
+        function each(arr,fn){
+            for(var i=0;i<arr.length;i++){
+                fn(arr[i],i);
+            }
+        }
+        function output(item){
+            console.log(item);
+        }
+        each(arr,output);
+        function output(item,index){
+            console.log(index+':'+item);
+        }
+        //那就是说没有函数重载。
+        ////////////////////////////////////////////////////////
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .dv {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .nw {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="father">
+        <div class="dv" id="dv"></div>
+        <div class="dv" id="dv2"></div>
+        <div id="dv3">
+            <div class="dv" data-log="dv4"></div>
+            <div class="dv" id="dv5"></div>
+        </div>
+    </div>
+
+    <input type="button" value="按钮" id="btn">
+    <ul id="list">
+        <li id="item1">Simon</li>
+        <li id="item2">Kenner</li>
+        <li id="item3">Erik</li>
+    </ul>
+    <button id="btn">Change</button>
+    <script>
+        function each(arr, fn) {
+            for (var i = 0; i < arr.length; i++) {
+                fn(arr[i], i);
+            }
+        }
+
+        function addClass(element, newClassName) {
+            var arr = element.getAttribute('class').split(' ');
+            arr.push(newClassName);
+            element.setAttribute("class", arr.join(' '));
+        }
+
+        function removeClass(element, oldClassName) {
+            var arr = element.getAttribute('class').split(' ');
+            arr.pop(arr.indexOf(oldClassName));
+            element.setAttribute('class', arr.join(' '));
+        }
+
+        function isSiblingNode(element, siblingNode) {
+            return element.parentNode == siblingNode.parentNode ? true : false;
+        }
+
+        function getPosition(element) {
+            var obj = {};
+            obj.x = element.offsetLeft;
+            obj.y = element.offsetTop;
+            return obj;
+        }
+
+        function $(selector) {
+            selector.trim();
+            var selectorarr = new Array();
+            if (selector.indexOf(' ') > 0) {
+                selectorarr = selector.split(' ');
+            } else {
+                selectorarr.push(selector);
+            }
+            var targetObj = document;
+            for (var i = 0; i < selectorarr.length; i++) {
+                targetObj = search.apply(targetObj, [selectorarr[i]]);
+            }
+            return targetObj;
+            function search(selector) {
+                if (selector.charAt(0) == '#') {
+                    return this.getElementById(selector.substring(1));
+                }
+
+                if (selector.charAt(0) == '.') {
+                    return this.getElementsByClassName(selector.substring(1))[0];
+                }
+
+                if (selector.charAt(0) == '[') {
+                    //document.getElementsByTagName('body')[0].getElementsByTagName('*')[0].getAttribute('');
+                    // null
+                    // document.getElementsByTagName('body')[0].getElementsByTagName('*')[0].getAttribute('id');
+                    // "father"
+                    var target = selector.substring(1, selector.length - 1);
+                    var targetarr = target.split('=');
+                    var all = this.getElementsByTagName('*');
+                    for (var i = 0; i < all.length; i++) {
+                        if (all[i].getAttribute(targetarr[0]) === targetarr[1] || all[i].getAttribute(targetarr[0]) != null) {
+                            return all[i];
+                        }
+                    }
+                }
+
+                return this.getElementsByTagName(selector)[0];
+            }
+
+        }
+
+        function getObjectLength(obj) {
+            var i = 0;
+            for (item in obj) {
+                i++;
+            }
+            return i;
+        }
+
+        document.getElementById("btn").onclick = function () {
+            // addClass(document.getElementById('dv'), 'nw');
+            // console.log(document.getElementById('dv').getAttribute("class").split(' '));
+            // removeClass(document.getElementById('dv'),'dv');
+            // console.log(isSiblingNode(document.getElementById('dv'),document.getElementById('dv4'))); 
+            console.log(getPosition(document.getElementById('dv3')));
+        }
+
+        function addEvent(element, event, listener) {
+            element.addEventListener(event, listener);
+        }
+        function ff() {
+            console.log('fafa');
+        }
+
+        function removeEvent(element, event, listener) {
+            element.removeEventListener(event, listener);
+        }
+
+        function addClickEvent(element, listener) {
+            element.addEventListener('click', listener);
+        }
+
+        function addEnterEvent(element, listener) {
+            onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                    element.addEventListener('click', listener);
+                }
+            }
+        }
+
+        $.on = function (selector, event, listener) {
+            $(selector).addEventListener(event, listener);
+        }
+        $.un = function (selector, event, listener) {
+            $(selector).removeEventListener(event, listener);
+        }
+        $.click = function (selector, listener) {
+            $(selector).addEventListener('click', listener);
+        }
+        $.enter = function (element, listener) {
+            onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                    element.addEventListener('click', listener);
+                }
+            }
+        }
+        $.delegate = function (selector, tag, eventName, listener) {
+            each($(selector).getElementsByTagName(tag), function (item) {
+                addEvent(item, eventName, listener);
+            });
+        }
+
+        function logListener() {
+            console.log('hahadiv');
+        }
+        function liClicker() {
+            console.log('ffli');
+        }
+        $.click('[data-log]', logListener);
+        $.delegate('#list', 'li', 'click', liClicker);
+
+        // appVersion: "5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"
+        // appVersion: "4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)"
+        // appVersion: "5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0"
+        // appVersion: "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+        function isIE() {
+            var arr = navigator.appVersion.split(' ');
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].indexOf('MSIE') != -1) {
+                    return arr[i];
+                }
+            }
+            return false;
+        }
+
+        function setCookie(cookieName, cookieValue, expiredays) {
+            var date = new Date();
+            date.setDate(date.getDate() + expiredays);
+            document.cookie = cookieName + '=' + cookieValue + ((expriedays = null) ? '' : ';expires=' + date.toGMTString());
+        }
+
+        function getCookie(cookieName){
+            var strarr=document.cookie.split(' ');
+            for(var i=0;i<strarr.length;i++){
+                if(strarr[i].indexOf(cookieName)!=-1){
+                    return strarr[i];
+                }
+            }
+            return '';
+        }
+    </script>
+</body>
+
+</html>
