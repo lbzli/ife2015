@@ -1,0 +1,172 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+ul {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+}
+
+.list .show {
+	display: block;
+}
+.click {
+	background-color: #FFF;
+}
+
+/*box的样式*/
+.box {
+	position: relative;
+	margin: 0 auto;
+	margin-top: 30px;
+	width: 1280px;
+	height: 600px;
+	background-color: pink;
+}
+.head {
+	width: 100%;
+	height: 60px;
+	background-color: hotpink;
+	border-radius: 5px,0;
+}
+
+/*中间的盒子*/
+.main {
+	width: 1280px;
+	height: 500px;
+	background-color: deeppink;
+}
+.main div {
+	float: left;
+}
+
+
+/*左边的盒子*/
+.left {
+	padding-left: 10px;
+	width: 220px;
+	height: 540px;
+	background-color: pink;
+}
+.left p {
+	line-height: 40px;
+}
+.list {
+	width: 100%;
+	height: 460px;
+}
+.list>ul {
+	margin-top: 15px;
+	width: 100%;
+	background-color: deeppink;
+}
+.list ul>li {
+	margin-top: 15px;
+	padding-left: 30px;
+}
+.list li>ul {
+	display: none;
+}
+.addlistbtn {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: hotpink;
+}
+.list li>span{
+	padding: 0 10px;
+	background-color: #fff;
+	display: none;
+}
+.list li:hover>span {
+	display: inline;
+}
+/*盒子的遮罩*/
+.mark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 1280px;
+	height: 600px;
+	background-color: rgba(0,0,0,.3);
+}
+.addlist {
+	margin: 0 auto;
+	margin-top: 200px;
+	width: 200px;
+	text-align: center;
+}
+.addlist button {
+	margin: 5px 25px 0;
+}
+
+
+/*这是main中间的盒子*/
+.center {
+	width: 230px;
+	height: 540px;
+	background-color: hotpink;
+}
+.center-head {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: pink;
+}
+.center-head span {
+	margin: 0 5px;
+	padding: 0 5px;
+}
+.center-main {
+	width: 210px;
+	height: 460px;
+	padding-left: 20px;
+}
+.center-main>ul {
+	margin-top: 10px;
+	width: 100%;
+}
+.center-main ul>li {
+	padding-left: 15px;
+	margin-top: 5px;
+}
+.center-footer {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: pink;
+}
+
+/*右边的盒子*/
+.right {
+	width: 820px;
+	height: 540px;
+}
+.title {
+	padding-left: 30px;
+	width: 790px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 18px;
+	font-weight: 700;
+	background-color: deeppink;
+}
+.date {
+	padding-left: 30px;
+	width: 790px;
+	height: 50px;
+	line-height: 50px;
+	background-color: pink;
+}
+.edit {
+	padding-top: 30px;
+	padding-left: 30px;
+	width: 790px;
+	height: 410px;
+	background-color: red;
+}

@@ -174,3 +174,88 @@ function $(selector) {
 
 }
 
+/**
+ * 给一个元素绑定一个针对event事件的响应，响应函数为监听器
+ */
+function addEvent(element, event, listener) {
+    element.addEventListener(event, listener);
+}
+
+//移除元素对象对于事件事件发生时执行监听器的响应
+function removeEvent(element, event, listener) {
+    element.removeEventListener(event, listener);
+}
+
+//实现对click事件的绑定
+function addClickEvent(element, listener) {
+    element.addEventListener('click', listener);
+}
+
+//实现对于按输入键时的事件绑定
+function addEnterEvent(element, listener) {
+    onkeydown = function (e) {
+        if (e.keyCode == 13) {
+            element.addEventListener('click', listener);
+        }
+    }
+}
+
+// 判断是否为IE浏览器，返回-1或者版本号
+function isIE() {
+    var arr = navigator.appVersion.split(' ');
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].indexOf('MSIE') != -1) {
+            return arr[i];
+        }
+    }
+    return -1;
+}
+
+// 设置cookie
+function setCookie(cookieName, cookieValue, expiredays) {
+    var date = new Date();
+    date.setDate(date.getDate() + expiredays);
+    document.cookie = cookieName + '=' + cookieValue + ((expriedays = null) ? '' : ';expires=' + date.toGMTString());
+}
+
+// 获取cookie值
+function getCookie(cookieName){
+    var strarr=document.cookie.split(' ');
+    for(var i=0;i<strarr.length;i++){
+        if(strarr[i].indexOf(cookieName)!=-1){
+            return strarr[i];
+        }
+    }
+    return '';
+}
+
+function ajax(method, url, params, done) {
+    method = method.toUpperCase();
+    var pairs = [];
+    for (var key in params) {
+        pairs.push(key + "=" + params[key]);
+    }
+    var querystring = pairs.join("&");
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState !== 4) return;
+        try {
+            done(JSON.parse(this.responseText))
+        } catch (e) {
+            done(this.responseText)
+        }
+    })
+
+    if (method === "GET") {
+        url += "?" + querystring;
+    }
+
+    xhr.open(method, url);
+
+    var data = null;
+    if (method === "POST") {
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        data = querystring;
+    }
+    xhr.send(data);
+}
