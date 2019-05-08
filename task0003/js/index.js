@@ -35,29 +35,65 @@
  /**
   * 封装一个Ajax请求
   */
-function get(method,url,parms,done){
-	method=method.toUpperCase();
-	var data=new Array();
-	for (key in parms) {
-		data.push(key+"="+parms[key])
-	}
-	var query=data.join("&");
+  function get(method,url,parms,done){
+  	method=method.toUpperCase();
+  	var data=new Array();
+  	for (key in parms) {
+  		data.push(key+"="+parms[key])
+  	}
+  	var query=data.join("&");
 
-	var xhr=XMLHttpRequest?new XMLHttpRequest():new ActiveXObject();
+  	var xhr=XMLHttpRequest?new XMLHttpRequest():new ActiveXObject();
 
-	xhr.onreadystatechange=function() {
-		if(xhr.readyState==4){
-			done(xhr.responseText);
+  	xhr.onreadystatechange=function() {
+  		if(xhr.readyState==4){
+  			done(xhr.responseText);
+  		}
+  	}
+  	if(method=='GET'){
+  		url+='?'+query;
+  	}
+  	var data2=null;
+  	if(method=="POST"){
+  		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+  		data2=query;
+  	}
+  	xhr.open(method, url);
+  	xhr.send(data2);
+  }
+
+
+  function done(res){
+  	res=JSON.parse(res);
+  	console.log(res);
+  	var result="";
+  	var result2="";
+
+  	for (item in res) {
+  		result+="<ul>"+res[item]['time'];
+  		result2="";
+			// console.log(res[item]['time']);
+			// console.log(res[item][0][0]);
+			// console.log(res[item][0][1]);
+			for (key in res[item][0]) {
+				result2+="<li data-id="+res[item][0][key]['id']+">"+res[item][0][key]['title']+"</li>";
+
+				// console.log(res[item][0][key]['title']);
+			}
+			result+=result2;
+			result+="</ul>";
 		}
+
+		document.getElementsByClassName("center-main")[0].innerHTML=result;
 	}
-	if(method=='GET'){
-		url+='?'+query;
-	}
-	var data2=null;
-	if(method=="POST"){
-		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		data2=query;
-	}
-	xhr.open(method, url);
-	xhr.send(data2);
+
+
+function click() {
+	var data_id=this.getAttribute('data-id');
+	var method='get';
+	var url='select_task.php';
+	var parms={
+		id:data_id
+	};
+	get(method,url,parms,done);
 }

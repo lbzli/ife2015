@@ -21,11 +21,13 @@ $classify=select('select *
 						分类列表
 						<ul>
 							<?php foreach ($classify as $item ): ?>
+								<?php //这里使输出项目的名字和其内容的数量 ?>
 								<li><?php echo $item['name']; ?>（<?php echo select('SELECT count(1) as count from content WHERE main_id='.$item['main_id'])[0]['count']; ?>）<span><a href="#">删除</a></span>
+								<?php  //这里查询的是小任务的名字和其内容的数量（下面那行先获取全部task的信息）?>
 									<?php $task=select('select * from task where main_id='.$item['main_id']) ?>
 									<ul>									
 										<?php foreach ($task as $key): ?>
-											<li><?php echo $key['task_name']; ?>（<?php echo select('SELECT count(1) from content WHERE main_id='.$key['second_id'])[0][0]; ?>）</li>
+											<li data-id=<?php echo $key['second_id']; ?>><?php echo $key['task_name']; ?>（<?php echo select('SELECT count(1) as count from content WHERE second_id='.$key['second_id'])[0]['count']; ?>）</li>
 										<?php endforeach ?>
 									</ul>
 								</li>
@@ -77,5 +79,11 @@ $classify=select('select *
 			</div>
 		</div>
 		<script src="/js/index.js"></script>
+		<script>
+			var list=document.querySelectorAll('.list li>ul>li');
+			for(var i=0;i<list.length;i++){
+				list[i].onclick=click;
+			}
+		</script>
 	</body>
 	</html>
