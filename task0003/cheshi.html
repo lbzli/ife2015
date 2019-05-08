@@ -33,5 +33,21 @@
 			</form>
 		</div>
 	</div>
+
+	<script>
+		var res=new Array({0: Array({id: "1", second_id: "1", title: "to-do 1", time: "2015-04-28", content: "这是to-do1"},{id: "2", second_id: "1", title: "to-do 2", time: "2015-04-28", content: "这是to-do2"}), time: "2015-04-28"},{0: Array({id: "3", second_id: "1", title: "to-do 3", time: "2015-04-29", content: "这是to-do3"},{id: "4", second_id: "1", title: "to-do 4", time: "2015-04-29", content: "这是to-do4"}), time: "2015-04-29"})
+		console.log(res);
+
+		for (item in res) {
+			console.log(res[item]['time']);
+			// console.log(res[item][0][0]);
+			// console.log(res[item][0][1]);
+			for (key in res[item][0]) {
+				console.log(res[item][0][key]);
+			}
+
+		}
+
+	</script>
 </body>
 </html>

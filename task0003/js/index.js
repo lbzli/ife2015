@@ -30,3 +30,34 @@
  	btn[i].onclick=hidden;
  }
  document.querySelector(".addlistbtn").onclick=show;
+
+
+ /**
+  * 封装一个Ajax请求
+  */
+function get(method,url,parms,done){
+	method=method.toUpperCase();
+	var data=new Array();
+	for (key in parms) {
+		data.push(key+"="+parms[key])
+	}
+	var query=data.join("&");
+
+	var xhr=XMLHttpRequest?new XMLHttpRequest():new ActiveXObject();
+
+	xhr.onreadystatechange=function() {
+		if(xhr.readyState==4){
+			done(xhr.responseText);
+		}
+	}
+	if(method=='GET'){
+		url+='?'+query;
+	}
+	var data2=null;
+	if(method=="POST"){
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		data2=query;
+	}
+	xhr.open(method, url);
+	xhr.send(data2);
+}
