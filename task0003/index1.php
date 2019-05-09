@@ -40,9 +40,9 @@ $classify=select('select *
 				</div>
 				<div class="center">
 					<div class="center-head">
-						<span class="click">所有</span>
-						<span>未完成</span>
-						<span>已完成</span>
+						<span class="click" data-status=0>所有</span>
+						<span data-status=1>未完成</span>
+						<span data-status=2>已完成</span>
 					</div>
 					<div class="center-main">
 						<?php $time=select('SELECT distinct time from content WHERE second_id=1') ?>
@@ -81,8 +81,12 @@ $classify=select('select *
 		<script src="/js/index.js"></script>
 		<script>
 			var list=document.querySelectorAll('.list li>ul>li');
+			var spanlist=document.querySelectorAll('.center-head span');
+			for(var i=0;i<spanlist.length;i++){
+				spanlist[i].onclick=obj.scree;
+			}
 			for(var i=0;i<list.length;i++){
-				list[i].onclick=click;
+				list[i].onclick=obj.click;
 			}
 		</script>
 	</body>

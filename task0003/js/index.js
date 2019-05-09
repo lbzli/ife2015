@@ -65,7 +65,8 @@
 
   function done(res){
   	res=JSON.parse(res);
-  	console.log(res);
+  	//测试用的代码用来检测查看返回来的数据
+  	// console.log(res);
   	var result="";
   	var result2="";
 
@@ -87,13 +88,34 @@
 		document.getElementsByClassName("center-main")[0].innerHTML=result;
 	}
 
+//第一次使用单列模式
+//功能是将点击事件封装，并且使用闭包来维护变量
+//click 函数的功能使点击左边的那些列表内容发送第一次Ajax请求，将其对于的那些内容渲染到中间的那个列表里面。
+//scree 函数的功能是点击实现数据的筛选。
+	var obj=(function(){
+		var data_id;
+		var method;
+		var url;
+		var parms;
+		var object={};
 
-function click() {
-	var data_id=this.getAttribute('data-id');
-	var method='get';
-	var url='select_task.php';
-	var parms={
-		id:data_id
-	};
-	get(method,url,parms,done);
-}
+		object.click=function () {
+			data_id=this.getAttribute('data-id');
+			method='get';
+			url='select_task.php';
+			parms={
+				id:data_id
+			};
+			get(method,url,parms,done);
+		}
+		object.scree=function(){
+			parms.status=this.getAttribute('data-status');
+			// console.log(method,url,parms);
+			get(method,url,parms,done);
+		}
+		return object;
+	})();
+
+
+
+
