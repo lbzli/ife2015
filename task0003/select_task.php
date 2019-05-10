@@ -31,9 +31,6 @@ if($status!=0){
 	}
 }
 
-
-
-
 $json=json_encode($date);
 
 echo $json;

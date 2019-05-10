@@ -9,7 +9,7 @@ $classify=select('select *
 	<head>
 		<meta charset="UTF-8" />
 		<title>个人管理页面</title>
-		<link rel="stylesheet" href="/css/index.css" />
+		<link rel="stylesheet" href="http://ife.io:82/css/index.css" />
 	</head>
 	<body>
 		<div class="box">
@@ -22,7 +22,7 @@ $classify=select('select *
 						<ul>
 							<?php foreach ($classify as $item ): ?>
 								<?php //这里使输出项目的名字和其内容的数量 ?>
-								<li><?php echo $item['name']; ?>（<?php echo select('SELECT count(1) as count from content WHERE main_id='.$item['main_id'])[0]['count']; ?>）<span><a href="#">删除</a></span>
+								<li data-mainid=<?php echo $item['main_id']; ?>><?php echo $item['name']; ?>（<?php echo select('SELECT count(1) as count from content WHERE main_id='.$item['main_id'])[0]['count']; ?>）<span><a href="#">删除</a></span>
 								<?php  //这里查询的是小任务的名字和其内容的数量（下面那行先获取全部task的信息）?>
 									<?php $task=select('select * from task where main_id='.$item['main_id']) ?>
 									<ul>									
@@ -61,9 +61,11 @@ $classify=select('select *
 					</div>
 				</div>
 				<div class="right">
-					<div class="title">to-do 6</div>
-					<div class="date">任务日期：2015-04-30</div>
-					<div class="edit">完成task3的编码工作</div>
+					<form action="" method="post">
+						<label for=""><input type="text" class="title" disabled="disable" /></label>
+						<label for=""><input type="text" class="data" disabled="disable" /></label>
+						<label for=""><textarea name="" id="" cols="30" rows="10" class="edit" disabled="disable"></textarea></label>
+					</form>
 				</div>
 			</div>
 			<div class="mark">
@@ -82,12 +84,10 @@ $classify=select('select *
 		<script>
 			var list=document.querySelectorAll('.list li>ul>li');
 			var spanlist=document.querySelectorAll('.center-head span');
-			for(var i=0;i<spanlist.length;i++){
-				spanlist[i].onclick=obj.scree;
-			}
 			for(var i=0;i<list.length;i++){
 				list[i].onclick=obj.click;
 			}
+			
 		</script>
 	</body>
 	</html>
