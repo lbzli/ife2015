@@ -9,6 +9,9 @@ a {
 	text-decoration: none;
 }
 
+.yellow {
+	background-color: yellow;
+}
 .list .show {
 	display: block;
 }
@@ -67,7 +70,7 @@ a {
 	padding-left: 30px;
 }
 .list li>ul {
-	display: none;
+	display: block;
 }
 .addlistbtn {
 	width: 100%;

@@ -64,6 +64,20 @@
 
 		//测试用的代码
 		get('get','select_task.php',{haha:"i你好"},function(res){console.log(res)});
+
+		
+
+		//这个是添加时用的代码。
+		var ilist=document.querySelectorAll('.list>ul>li>i');
+		var arr=[];
+		for(var i=0;i<ilist.length;i++){
+			arr.push(ilist[i].innerText)
+		}
+		var method='get';
+		var url='classlistadd.php';
+		var parms={};
+		parms.list=arr;
+		get(method,url,parms);
 	</script>
 </body>
 </html>

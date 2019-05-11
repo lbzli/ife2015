@@ -41,6 +41,7 @@
   */
   function get(method,url,parms,done){
   	method=method.toUpperCase();
+  	done=done?done:function(res){};
   	var data=new Array();
   	for (key in parms) {
   		data.push(key+"="+parms[key])
@@ -94,6 +95,15 @@
 	}
 
 	document.getElementsByClassName("center-main")[0].innerHTML=result;
+	var list=document.querySelectorAll('.center-main ul>li');
+	for(var i=0;i<list.length;i++){
+		list[i].addEventListener('click',function(){
+			for(var j=0;j<list.length;j++){
+				list[j].classList.remove('yellow');
+			}
+			this.classList.add('yellow');
+		});
+	}
 }
 
 
@@ -156,7 +166,5 @@
 		}
 		return object;
 	})();
-
-
 
 
