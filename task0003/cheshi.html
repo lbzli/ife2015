@@ -33,51 +33,234 @@
 			</form>
 		</div>
 	</div>
-	<ul>2015-04-28<li data-id=1>to-do 1</li><li data-id=2>to-do 2</li></ul><ul>2015-04-29<li data-id=3>to-do 3</li><li data-id=4>to-do 4</li></ul><ul>2015-04-30<li data-id=5>to-do 5</li><li data-id=6>to-do 6</li></ul><ul>2015-05-04<li data-id=7>to-do 7</li></ul>
+	<!-- <ul>2015-04-28<li data-id=1>to-do 1</li><li data-id=2>to-do 2</li></ul><ul>2015-04-29<li data-id=3>to-do 3</li><li data-id=4>to-do 4</li></ul><ul>2015-04-30<li data-id=5>to-do 5</li><li data-id=6>to-do 6</li></ul><ul>2015-05-04<li data-id=7>to-do 7</li></ul> -->
 
-	<ul></ul>
+	<ul id="ul"></ul>
 	<li></li>
 
 	<script>
 		//回调函数的代码
-		res=JSON.parse(res);
-		console.log(res);
-		var result="";
-		var result2="";
+		// res=JSON.parse(res);
+		// console.log(res);
+		// var result="";
+		// var result2="";
 
-		for (item in res) {
-			result+="<ul>"+res[item]['time'];
-			result2="";
-			// console.log(res[item]['time']);
-			// console.log(res[item][0][0]);
-			// console.log(res[item][0][1]);
-			for (key in res[item][0]) {
-				result2+="<li data-id="+res[item][0][key]['id']+">"+res[item][0][key]['title']+"</li>";
+		// for (item in res) {
+		// 	result+="<ul>"+res[item]['time'];
+		// 	result2="";
+		// 	// console.log(res[item]['time']);
+		// 	// console.log(res[item][0][0]);
+		// 	// console.log(res[item][0][1]);
+		// 	for (key in res[item][0]) {
+		// 		result2+="<li data-id="+res[item][0][key]['id']+">"+res[item][0][key]['title']+"</li>";
 
-				// console.log(res[item][0][key]['title']);
-			}
-			result+=result2;
-			result+="</ul>";
-		}
+		// 		// console.log(res[item][0][key]['title']);
+		// 	}
+		// 	result+=result2;
+		// 	result+="</ul>";
+		// }
 
-		document.getElementsByClassName("center-main")[0].innerHTML=result;
+		// document.getElementsByClassName("center-main")[0].innerHTML=result;
 
-		//测试用的代码
-		get('get','select_task.php',{haha:"i你好"},function(res){console.log(res)});
+		// //测试用的代码
+		// get('get','select_task.php',{haha:"i你好"},function(res){console.log(res)});
 
 		
 
-		//这个是添加时用的代码。
-		var ilist=document.querySelectorAll('.list>ul>li>i');
-		var arr=[];
-		for(var i=0;i<ilist.length;i++){
-			arr.push(ilist[i].innerText)
-		}
-		var method='get';
-		var url='classlistadd.php';
-		var parms={};
-		parms.list=arr;
-		get(method,url,parms);
+		// //这个是添加时用的代码。
+		// var ilist=document.querySelectorAll('.list>ul>li>i');
+		// var arr=[];
+		// for(var i=0;i<ilist.length;i++){
+		// 	arr.push(ilist[i].innerText)
+		// }
+		// var method='get';
+		// var url='classlistadd.php';
+		// var parms={};
+		// parms.list=arr;
+		// get(method,url,parms);
+
+// 		var data=[
+// 	{
+// 		"title":"IFE项目",
+// 		"subitem":[
+// 			{
+// 				"name":"task1",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 1",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					},
+// 					{
+// 						"ctitle":"to-do 2",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			},
+// 			{
+// 				"name":"task2",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 3",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			}
+// 		]
+// 	},
+// 	{
+// 		"title":"毕业设计",
+// 		"subitem":[
+// 			{
+// 				"name":"task3",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 4",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					},
+// 					{
+// 						"ctitle":"to-do 5",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			},
+// 			{
+// 				"name":"task4",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 6",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			}
+// 		]
+// 	},
+// 	{
+// 		"title":"社团活动",
+// 		"subitem":[
+// 			{
+// 				"name":"task5",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 7",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					},
+// 					{
+// 						"ctitle":"to-do 8",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			},
+// 			{
+// 				"name":"task6",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 9",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			}
+// 		]
+// 	},
+// 	{
+// 		"title":"家庭分类",
+// 		"subitem":[
+// 			{
+// 				"name":"task7",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 10",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					},
+// 					{
+// 						"ctitle":"to-do 11",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			},
+// 			{
+// 				"name":"task8",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 12",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			}
+// 		]
+// 	},
+// 	{
+// 		"title":"默认分类",
+// 		"subitem":[
+// 			{
+// 				"name":"task9",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 13",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					},
+// 					{
+// 						"ctitle":"to-do 14",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			},
+// 			{
+// 				"name":"task10",
+// 				"center":[
+// 					{
+// 						"ctitle":"to-do 15",
+// 						"time":"2019-05-11",
+// 						"center":"这是to-do 1",
+// 						"status":1
+// 					}
+// 				]
+// 			}
+// 		]
+// 	}
+// ];
+
+
+		// data=JSON.stringify(data);
+		// document.getElementById("ul").innerText=data;
+		// data=JSON.parse(data);
+		// console.log(data);
+		// 
+		
 	</script>
 </body>
 </html>
+
+<h3></h3>
+
+<ul>
+	<h6></h6>
+	<li></li>
+</ul>

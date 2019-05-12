@@ -19,7 +19,7 @@ $classify=select('select *
 					<p>所有任务(<?php echo select('SELECT count(1) as count from content')[0]['count'] ?>)</p>
 					<div class="list">
 						分类列表
-						<ul>
+						<!-- <ul>
 							<?php foreach ($classify as $item ): ?>
 								<?php //这里使输出项目的名字和其内容的数量 ?>
 								<li data-mainid=<?php echo $item['main_id']; ?>><i><?php echo $item['name']; ?></i> (<?php echo select('SELECT count(1) as count from content WHERE main_id='.$item['main_id'])[0]['count']; ?>)<span><a href="#">删除</a></span>
@@ -32,7 +32,7 @@ $classify=select('select *
 									</ul>
 								</li>
 							<?php endforeach ?>
-						</ul>
+						</ul> -->
 					</div>
 					<div class="addlistbtn">
 						新增分类
@@ -82,13 +82,15 @@ $classify=select('select *
 		</div>
 		<script src="/js/index.js"></script>
 		<script>
-			var list=document.querySelectorAll('.list li>ul>li');
-			var spanlist=document.querySelectorAll('.center-head span');
-			for(var i=0;i<list.length;i++){
-				list[i].onclick=obj.click;
+			onload=function(){
+				get('get','read.php',{id:1},init);
+
 			}
+
+			var spanlist=document.querySelectorAll('.center-head span');
+			
 			for(var i=0;i<spanlist.length;i++){
-				spanlist[i].onclcik=obj.scree;
+				spanlist[i].onclick=obj.scree;
 			}
 
 			var list=document.querySelectorAll('.list li>ul>li');
