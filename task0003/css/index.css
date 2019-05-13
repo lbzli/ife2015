@@ -60,6 +60,17 @@ a {
 	width: 100%;
 	height: 460px;
 }
+.list a {
+	float: right;
+	padding-right: 20px;
+	display: none;
+}
+.list li:hover a {
+	display: inline-block;
+}
+.list h4:hover a {
+	display: inline-block;
+}
 .list>ul {
 	width: 100%;
 	background-color: deeppink;
@@ -68,9 +79,6 @@ a {
 	margin-top: 15px;
 	padding-left: 30px;
 }
-.list li>ul {
-	display: block;
-}
 .addlistbtn {
 	width: 100%;
 	height: 40px;
@@ -78,14 +86,9 @@ a {
 	text-align: center;
 	background-color: hotpink;
 }
-.list li>span{
-	padding: 0 10px;
-	background-color: #fff;
-	display: none;
-}
-.list li:hover>span {
-	display: inline;
-}
+
+
+
 /*盒子的遮罩*/
 .mark {
 	position: absolute;
@@ -128,6 +131,14 @@ a {
 	height: 460px;
 	padding-left: 20px;
 }
+.center-main a {
+	float: right;
+	padding-right: 20px;
+	display: none;
+}
+.center-main li:hover a{
+	display: block;
+}
 .center-main>ul {
 	margin-top: 10px;
 	width: 100%;
@@ -146,12 +157,25 @@ a {
 
 /*右边的盒子*/
 .right {
+	position: relative;
 	width: 820px;
 	height: 540px;
 }
 .right input {
 	border: 0;
 	outline: none;
+}
+.right span {
+	position: absolute;
+	right: 0;
+	padding: 0 20px;
+	margin: 0 5px;
+	border-radius: 5px;
+	background-color: #f3f3f3;
+
+}
+.right span:nth-child(1){
+	right: 100px;
 }
 .title {
 	padding-left: 30px;

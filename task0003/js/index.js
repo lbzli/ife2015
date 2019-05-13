@@ -42,15 +42,63 @@
   	xhr.send(data2);
   }
 
+//del  分类部分的删除功能
+/**
+   * [del 这个是分类部分的删除功能，可以删除大的分类，也可以删除其二级目录]
+   */
+ function del(){
+  	var parent=this.parentElement;
+  	if(parent.tagName=="H4"){
+  		get('get','read.php',{},function(res){
+  			res=JSON.parse(res);
+  			res.splice(parent.getAttribute('data-mainid'), 1);
+  			res=JSON.stringify(res);
+  			get('post','testadd.php',{data:res});
+  		})
+  	}else if(parent.tagName=="LI"){
+  		get('get','read.php',{},function(res){
+  			res=JSON.parse(res);
+  			res[parent.getAttribute('data-mainid')]['subitem'].splice(parent.getAttribute('data-id'), 1);
+  			res=JSON.stringify(res);
+  			get('post','testadd.php',{data:res});
+  		})
+  	}
+	console.log(this.parentElement.getAttribute('data-mainid'));
+	location.reload();
+	return false;
+ }
+
+function cdel(){
+	var parent=this.parentElement;
+	var x_coord,y_coord,z_coord;
+	x_coord=parent.getAttribute('data-mainid');
+	y_coord=parent.getAttribute('data-id');
+	z_coord=parent.getAttribute('data-lcid');
+	get('get','read.php',{},function(res){
+		res=JSON.parse(res);
+		var search_data=res[x_coord]['subitem'][y_coord]['center'];
+		for(var i=0;i<search_data.length;i++){
+			if(search_data[i].id==z_coord){
+				z_coord=i;
+				break;
+			}
+		}
+		res[x_coord]['subitem'][y_coord]['center'].splice(z_coord, 1);
+		res=JSON.stringify(res);
+		get('post','testadd.php',{data:res});
+	})
+	location.reload();
+	return false;
+}
 //init  页面初始化
 /**
    * [init 页面初始化的函数，这个会作为一个回调函数来使用]
    * @param  {[type]} res [这个是响应过来的JSON数据]
    */
    function init(res){
-	   	var res=JSON.parse(res);
-	   	var result=""
-	   	var subitem;
+   	var res=JSON.parse(res);
+   	var result=""
+   	var subitem;
 
 	   	//使用这两个变量的原因是因为，在查找的时候直接使用索引会跟快的锁定目标（不这样，还要使用indexOf来判断位置）.
 	   	//像这样直接可以使用索引的方式找到我们想要的。
@@ -89,11 +137,11 @@
 	   	document.querySelector('.left>p').innerHTML="所有任务（"+maincount()+"）";
 	   	result="<h3>分类列表</h3>"
 	   	for (key in res) {
-	   		num=0;
-	   		result+="<ul><h4 data-mainid="+nummain+">"+res[key]['title']+" ("+licount(nummain)+")</h4>"
+	   		num=0;	
+	   		result+="<ul><h4 data-mainid="+nummain+">"+res[key]['title']+" ("+licount(nummain)+")<a href='#'>X</a></h4>"
 	   		subitem=res[key]['subitem'];
 	   		for (item in subitem) {
-	   			result+="<li data-mainid="+nummain+" data-id="+num+">"+subitem[item]['name']+"("+taskcount(nummain,num)+")</li>";
+	   			result+="<li data-mainid="+nummain+" data-id="+num+">"+subitem[item]['name']+"("+taskcount(nummain,num)+")<a href='#'>X</a></li>";
 	   			num++;
 	   		}
 	   		result+="</ul>";
@@ -104,7 +152,7 @@
 	   	for(var i=0;i<list.length;i++){
 	   		list[i].onclick=obj.click;
 	   	}
-	   	var list=document.querySelectorAll('.list ul>li');
+	   	var list=document.querySelectorAll('.list h4,li');
 	   	for(var i=0;i<list.length;i++){
 	   		list[i].addEventListener('click',function(){
 	   			for(var j=0;j<list.length;j++){
@@ -113,7 +161,12 @@
 	   			this.classList.add('yellow');
 	   		});
 	   	}
-   }
+
+	   	var alist=document.querySelectorAll('.list a');
+	   	for(var i=0;i<alist.length;i++){
+	   		alist[i].onclick=del;
+	   	}
+	   }
 
 //done  处理center div的内容
 /**
@@ -136,13 +189,14 @@
 			datastr.push(newdata[key]['time']);
 		}
 	}
+	datastr.sort();
 
 	if(status==undefined||status==0){
 		for (key in datastr) {
 			result+="<ul><h4>"+datastr[key]+"</h4>";
 			for (item in newdata) {
 				if(newdata[item]['time']==datastr[key]){
-					result+="<li  onclick=obj.browse("+newdata[item]['id']+") data-id="+newdata[item]['id']+">"+newdata[item]['ctitle']+"</li>";
+					result+="<li onclick=obj.browse("+newdata[item]['id']+") data-mainid="+main_id+" data-id="+id+" data-lcid="+newdata[item]['id']+">"+newdata[item]['ctitle']+"<a href='#'>X</a></li>";
 				}
 			}
 			result+="</ul>";
@@ -152,7 +206,7 @@
 			result+="<ul><h4>"+datastr[key]+"</h4>";
 			for (item in newdata) {
 				if(newdata[item]['time']==datastr[key]&&newdata[item]['status']==status){
-					result+="<li onclick=obj.browse("+newdata[item]['id']+") data-id="+newdata[item]['id']+">"+newdata[item]['ctitle']+"</li>";
+					result+="<li onclick=obj.browse("+newdata[item]['id']+") data-mainid="+main_id+" data-id="+id+" data-lcid="+newdata[item]['id']+">"+newdata[item]['ctitle']+"<a href='#'>X</a></li>";
 				}
 			}
 			result+="</ul>";
@@ -171,7 +225,12 @@
 			this.classList.add('yellow');
 		});
 	}
- }
+
+	var alist=document.querySelectorAll('.center-main a');
+	for(var i=0;i<alist.length;i++){
+		alist[i].onclick=cdel;
+	}
+}
 
 //done2 处理right div里的内容
 /**
@@ -194,36 +253,61 @@
  		if(data!=null){break;}
  	}
  	var result="";
- 	result+="<label for=''><input type='text' class='title' name='title' disabled='disable' value='"+data['ctitle']+"'/></label>"
- 	result+="<label for=''><input type='text' class='data' name='data' disabled='disable' value='"+data['time']+"'/></label>"
- 	result+="<label for=''><textarea name='' id='' name='conten' cols='30' rows='10' class='edit' disabled='disable'>"+data['center']+"</textarea></label>"
+ 	result+="<label for=''><input type='text' class='title' name='title' value='"+data['ctitle']+"'/></label>"
+ 	result+="<label for=''><input type='text' class='data' name='data' value='"+data['time']+"'/></label>"
+ 	result+="<label for=''><textarea name='' id='' name='conten' cols='30' rows='10' class='edit'>"+data['center']+"</textarea></label>"
  	document.getElementsByClassName('right')[0].getElementsByTagName('form')[0].innerHTML=result;
  }
 
-//先把东西添加到页面，然后再修改数据。
+//addlist  先把东西添加到页面，然后再修改数据。
 /**
  * [addlist 添加新分类函数]
  */
  function addlist(){
-	var inputstr=document.querySelector(".addlist input").value;
-	var selected_li=document.querySelector(".list .yellow");
-	var newobj=document.createElement("li")
-	newobj.innerText=inputstr;
-	selected_li.insertAdjacentElement("afterend",newobj);
+ 	var inputstr=document.querySelector(".addlist input").value;
+ 	var selected=document.querySelector(".list .yellow");
+ 	if(!selected){
+ 		selected=document.querySelector('.list')
+ 		var newobj=document.createElement("ul");
+ 		newobj.innerText=inputstr;
+ 		selected.append(newobj);
+ 		// var x_coord=selected.getAttribute("data-mainid");
+		// var y_coord=selected.getAttribute("data-id");
+		var id=Date.now();
+		var addobj={
+			title:inputstr,
+			mainid:id,
+			subitem:[]
+		};
+		get('get','read.php',{},function(res){
+			res=JSON.parse(res);
+			res.push(addobj);
+			res=JSON.stringify(res);
+			get('post','testadd.php',{data:res});
+		})
+	}else if(selected.tagName=="H4"){
+		var newobj=document.createElement("li");
+ 		newobj.innerText=inputstr;
+ 		selected.parentElement.append(newobj);
+		var x_coord=selected.getAttribute("data-mainid");
+		// var y_coord=selected.getAttribute("data-id");
 
-	var x_coord=selected_li.getAttribute("data-mainid");
-	var y_coord=selected_li.getAttribute("data-id");
-	var addobj={
-		name:inputstr,
-		center:[]
-	};
-	get('get','read.php',{},function(res){
-		res=JSON.parse(res);
-		res[x_coord]['subitem'].splice(y_coord+1, 0, addobj);
-		res=JSON.stringify(res);
-		get('post','testadd.php',{data:res});
-	})
- }
+		var id=Date.now();
+		var addobj={
+			name:inputstr,
+			center:[]
+		};
+		get('get','read.php',{},function(res){
+			res=JSON.parse(res);
+			res[x_coord]['subitem'].push(addobj);
+			res=JSON.stringify(res);
+			get('post','testadd.php',{data:res});
+		})
+	}else if(selected.tagName=="LI"){
+
+	}
+}
+
 //第一次使用单列模式
 //功能是将点击事件封装，并且使用闭包来维护变量
 //click 函数的功能使点击左边的那些列表内容发送第一次Ajax请求，将其对于的那些内容渲染到中间的那个列表里面。

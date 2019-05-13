@@ -31,6 +31,7 @@
 				<button type="submit">提交</button>
 				<button type="button">取消</button>
 				<h3></h3>
+				<a href="#"></a>
 			</form>
 		</div>
 	</div>
@@ -39,41 +40,41 @@
 	<li></li>
 	
 	<script>
-		function get(method,url,parms,done){
-			method=method.toUpperCase();
-			done=done?done:function(res){};
-			var data=new Array();
-			for (key in parms) {
-				data.push(key+"="+parms[key])
-			}
-			var query=data.join("&");
+		// function get(method,url,parms,done){
+		// 	method=method.toUpperCase();
+		// 	done=done?done:function(res){};
+		// 	var data=new Array();
+		// 	for (key in parms) {
+		// 		data.push(key+"="+parms[key])
+		// 	}
+		// 	var query=data.join("&");
 
-			var xhr=XMLHttpRequest?new XMLHttpRequest():new ActiveXObject();
+		// 	var xhr=XMLHttpRequest?new XMLHttpRequest():new ActiveXObject();
 
-			xhr.onreadystatechange=function() {
-				if(xhr.readyState==4){
-					if(data.length>=2){
-						done(xhr.responseText,data);
-					}else if(done.name=="done2"){
-						done(xhr.responseText,parms['id']);
-					}else {
-						done(xhr.responseText);
-					}
+		// 	xhr.onreadystatechange=function() {
+		// 		if(xhr.readyState==4){
+		// 			if(data.length>=2){
+		// 				done(xhr.responseText,data);
+		// 			}else if(done.name=="done2"){
+		// 				done(xhr.responseText,parms['id']);
+		// 			}else {
+		// 				done(xhr.responseText);
+		// 			}
 
-				}
-			}
-			if(method=='GET'){
-				url+='?'+query;
-			}
-			var data2=null;
-			xhr.open(method, url);
-			if(method=="POST"){
-				xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-				data2=query;
-			}
-			
-			xhr.send(data2);
-		}
+		// 		}
+		// 	}
+		// 	if(method=='GET'){
+		// 		url+='?'+query;
+		// 	}
+		// 	var data2=null;
+		// 	xhr.open(method, url);
+		// 	if(method=="POST"){
+		// 		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		// 		data2=query;
+		// 	}
+
+		// 	xhr.send(data2);
+		// }
 
 
 		// function test(res){
@@ -89,8 +90,40 @@
 		// }
 		// get('get','read.php',{},test);
 		// 
-		var arr=new Array(new Array(1,2,3),new Array())
-	</script>
+		// var arr=new Array(new Array(1,2,3),new Array())
+		// 
+		function addlist(){
+			var inputstr=document.querySelector(".addlist input").value;
+			var selected=document.querySelector(".list .yellow");
+			var newobj=document.createElement("ul");
+			newobj.innerText=inputstr;
+			selected.parentElement.insertAdjacentElement("afterend",newobj);
+
+			if(selected.tagName=="H4"){
+				var x_coord=selected.getAttribute("data-mainid");
+				// var y_coord=selected.getAttribute("data-id");
+				var id=Date.now();
+				var addobj={
+					title:inputstr,
+					mainid:id,
+					subitem:[]
+				};
+				get('get','read.php',{},function(res){
+					res=JSON.parse(res);
+					res.splice(x_coord+1, 0, addobj);
+
+					res=JSON.stringify(res);
+					get('post','testadd.php',{data:res});
+				})
+			}else if(selected.tagName=="LI"){
+				var x_coord=selected.getAttribute("data-mainid");
+				var y_coord=selected.getAttribute("data-id");
+
+			}
+
+			
+		}
+</script>
 </body>
 </html>
 

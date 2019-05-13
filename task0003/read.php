@@ -29,56 +29,35 @@
 // 						"id"=>2,
 // 						"ctitle"=>"to-do 2",
 // 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 1",
-// 						"status"=>1
-// 					)
-// 				)
-// 			),
-// 			array(
-// 				"name"=>"task2",
-// 				"center"=>array(
-// 					array(
-// 						"id"=>3,
-// 						"ctitle"=>"to-do 3",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 1",
-// 						"status"=>1
-// 					)
-// 				)
-// 			)
-// 		)
-// 	),
-// 	array(
-// 		"title"=>"毕业设计",
-// 		"mainid"=>2,
-// 		"subitem"=>array(
-// 			array(
-// 				"name"=>"task1",
-// 				"center"=>array(
-// 					array(
-// 						"id"=>4,
-// 						"ctitle"=>"to-do 1",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 1",
+// 						"center"=>"这是to-do 2",
 // 						"status"=>1
 // 					),
 // 					array(
+// 						"id"=>3,
+// 						"ctitle"=>"to-do 3",
+// 						"time"=>"2019-05-13",
+// 						"center"=>"这是to-do 3",
+// 						"status"=>2
+// 					),
+// 					array(
+// 						"id"=>4,
+// 						"ctitle"=>"to-do 4",
+// 						"time"=>"2019-05-13",
+// 						"center"=>"这是to-do 4",
+// 						"status"=>2
+// 					),
+// 					array(
 // 						"id"=>5,
-// 						"ctitle"=>"to-do 2",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 2",
-// 						"status"=>1
-// 					)
-// 				)
-// 			),
-// 			array(
-// 				"name"=>"task2",
-// 				"center"=>array(
+// 						"ctitle"=>"to-do 5",
+// 						"time"=>"2019-05-12",
+// 						"center"=>"这是to-do 5",
+// 						"status"=>2
+// 					),
 // 					array(
 // 						"id"=>6,
-// 						"ctitle"=>"to-do 3",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 3",
+// 						"ctitle"=>"to-do 6",
+// 						"time"=>"2019-05-12",
+// 						"center"=>"这是to-do 6",
 // 						"status"=>1
 // 					)
 // 				)
@@ -90,66 +69,29 @@
 // 		"mainid"=>3,
 // 		"subitem"=>array(
 // 			array(
-// 				"name"=>"task1",
+// 				"name"=>"task6",
 // 				"center"=>array(
 // 					array(
 // 						"id"=>7,
-// 						"ctitle"=>"to-do 4",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 4",
-// 						"status"=>1
-// 					),
-// 					array(
-// 						"id"=>8,
-// 						"ctitle"=>"to-do 5",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 5",
-// 						"status"=>1
-// 					)
-// 				)
-// 			),
-// 			array(
-// 				"name"=>"task2",
-// 				"center"=>array(
-// 					array(
-// 						"id"=>9,
-// 						"ctitle"=>"to-do 6",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 6",
-// 						"status"=>1
-// 					)
-// 				)
-// 			)
-// 		)
-// 	),
-// 	array(
-// 		"title"=>"家庭分类",
-// 		"mainid"=>4,
-// 		"subitem"=>array(
-// 			array(
-// 				"name"=>"task1",
-// 				"center"=>array(
-// 					array(
-// 						"id"=>10,
 // 						"ctitle"=>"to-do 7",
 // 						"time"=>"2019-05-11",
 // 						"center"=>"这是to-do 7",
 // 						"status"=>1
 // 					),
 // 					array(
-// 						"id"=>11,
+// 						"id"=>8,
 // 						"ctitle"=>"to-do 8",
-// 						"time"=>"2019-05-11",
+// 						"time"=>"2019-05-12",
 // 						"center"=>"这是to-do 8",
 // 						"status"=>1
 // 					)
 // 				)
 // 			),
 // 			array(
-// 				"name"=>"task2",
+// 				"name"=>"task7",
 // 				"center"=>array(
 // 					array(
-// 						"id"=>12,
+// 						"id"=>9,
 // 						"ctitle"=>"to-do 9",
 // 						"time"=>"2019-05-11",
 // 						"center"=>"这是to-do 9",
@@ -160,40 +102,16 @@
 // 		)
 // 	),
 // 	array(
+// 		"title"=>"家庭分类",
+// 		"mainid"=>4,
+// 		"subitem"=>array(
+// 		)
+// 	),
+// 	array(
 // 		"title"=>"默认分类",
 // 		"mainid"=>5,
 // 		"subitem"=>array(
-// 			array(
-// 				"name"=>"task1",
-// 				"center"=>array(
-// 					array(
-// 						"id"=>13,
-// 						"ctitle"=>"to-do 10",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 10",
-// 						"status"=>1
-// 					),
-// 					array(
-// 						"id"=>14,
-// 						"ctitle"=>"to-do 11",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 11",
-// 						"status"=>1
-// 					)
-// 				)
-// 			),
-// 			array(
-// 				"name"=>"task2",
-// 				"center"=>array(
-// 					array(
-// 						"id"=>15,
-// 						"ctitle"=>"to-do 12",
-// 						"time"=>"2019-05-11",
-// 						"center"=>"这是to-do 12",
-// 						"status"=>1
-// 					)
-// 				)
-// 			)
+			
 // 		)
 // 	)
 // );
