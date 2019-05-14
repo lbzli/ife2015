@@ -17,8 +17,11 @@ span {
 .white {
 	background-color: #ffffff;
 }
-.list .show {
+.show {
 	display: block;
+}
+.hidden {
+	display: none;
 }
 .click {
 	background-color: #FFF;

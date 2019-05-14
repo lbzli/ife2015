@@ -143,7 +143,7 @@
 	   		result+="<ul><h4 data-mainid="+nummain+">"+res[key]['title']+" ("+licount(nummain)+")<a href='#'>X</a></h4>"
 	   		subitem=res[key]['subitem'];
 	   		for (item in subitem) {
-	   			result+="<li data-mainid="+nummain+" data-id="+num+">"+subitem[item]['name']+"("+taskcount(nummain,num)+")<a href='#'>X</a></li>";
+	   			result+="<li class='hidden' data-mainid="+nummain+" data-id="+num+">"+subitem[item]['name']+"("+taskcount(nummain,num)+")<a href='#'>X</a></li>";
 	   			num++;
 	   		}
 	   		result+="</ul>";
@@ -168,6 +168,20 @@
 	   	for(var i=0;i<alist.length;i++){
 	   		alist[i].onclick=del;
 	   	}
+
+	   	var h4list=document.querySelectorAll('.list h4');
+	   	for(var i=0;i<h4list.length;i++){
+	   		h4list[i].addEventListener('click', function(){
+	   			var totallist=document.querySelectorAll('.list li');
+	   			for(var i=0;i<totallist.length;i++){
+	   				totallist[i].className="hidden";
+	   			}
+	   			var nowlist=this.parentElement.getElementsByTagName('li');
+	   			for(var i=0;i<nowlist.length;i++){
+	   				nowlist[i].className="show";
+	   			}
+	   		})
+	   	}
 	   }
 
 //done  处理center div的内容
@@ -185,7 +199,7 @@
 	
 	var newdata=res[main_id]['subitem'][id]['center'];
 	var datastr=new Array();
-	datastr.push(newdata[0]['time']);
+	// datastr.push(newdata[0]['time']);
 	for (key in newdata) {
 		if(datastr.indexOf(newdata[key]['time'])==-1){
 			datastr.push(newdata[key]['time']);
