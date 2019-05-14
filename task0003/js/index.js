@@ -46,50 +46,49 @@
 /**
    * [del 这个是分类部分的删除功能，可以删除大的分类，也可以删除其二级目录]
    */
- function del(){
-  	var parent=this.parentElement;
-  	if(parent.tagName=="H4"){
-  		get('get','read.php',{},function(res){
-  			res=JSON.parse(res);
-  			res.splice(parent.getAttribute('data-mainid'), 1);
-  			res=JSON.stringify(res);
-  			get('post','testadd.php',{data:res});
-  		})
-  	}else if(parent.tagName=="LI"){
-  		get('get','read.php',{},function(res){
-  			res=JSON.parse(res);
-  			res[parent.getAttribute('data-mainid')]['subitem'].splice(parent.getAttribute('data-id'), 1);
-  			res=JSON.stringify(res);
-  			get('post','testadd.php',{data:res});
-  		})
-  	}
-	console.log(this.parentElement.getAttribute('data-mainid'));
-	location.reload();
-	return false;
- }
-
-function cdel(){
-	var parent=this.parentElement;
-	var x_coord,y_coord,z_coord;
-	x_coord=parent.getAttribute('data-mainid');
-	y_coord=parent.getAttribute('data-id');
-	z_coord=parent.getAttribute('data-lcid');
-	get('get','read.php',{},function(res){
-		res=JSON.parse(res);
-		var search_data=res[x_coord]['subitem'][y_coord]['center'];
-		for(var i=0;i<search_data.length;i++){
-			if(search_data[i].id==z_coord){
-				z_coord=i;
-				break;
-			}
-		}
-		res[x_coord]['subitem'][y_coord]['center'].splice(z_coord, 1);
-		res=JSON.stringify(res);
-		get('post','testadd.php',{data:res});
-	})
-	location.reload();
-	return false;
-}
+   function del(){
+   	var parent=this.parentElement;
+   	if(parent.tagName=="H4"){
+   		get('get','read.php',{},function(res){
+   			res=JSON.parse(res);
+   			res.splice(parent.getAttribute('data-mainid'), 1);
+   			res=JSON.stringify(res);
+   			get('post','testadd.php',{data:res});
+   		})
+   	}else if(parent.tagName=="LI"){
+   		get('get','read.php',{},function(res){
+   			res=JSON.parse(res);
+   			res[parent.getAttribute('data-mainid')]['subitem'].splice(parent.getAttribute('data-id'), 1);
+   			res=JSON.stringify(res);
+   			get('post','testadd.php',{data:res});
+   		})
+   	}
+   	console.log(this.parentElement.getAttribute('data-mainid'));
+   	location.reload();
+   	return false;
+   }
+   function cdel(){
+   	var parent=this.parentElement;
+   	var x_coord,y_coord,z_coord;
+   	x_coord=parent.getAttribute('data-mainid');
+   	y_coord=parent.getAttribute('data-id');
+   	z_coord=parent.getAttribute('data-lcid');
+   	get('get','read.php',{},function(res){
+   		res=JSON.parse(res);
+   		var search_data=res[x_coord]['subitem'][y_coord]['center'];
+   		for(var i=0;i<search_data.length;i++){
+   			if(search_data[i].id==z_coord){
+   				z_coord=i;
+   				break;
+   			}
+   		}
+   		res[x_coord]['subitem'][y_coord]['center'].splice(z_coord, 1);
+   		res=JSON.stringify(res);
+   		get('post','testadd.php',{data:res});
+   	})
+   	location.reload();
+   	return false;
+   }
 //init  页面初始化
 /**
    * [init 页面初始化的函数，这个会作为一个回调函数来使用]
@@ -196,7 +195,7 @@ function cdel(){
 			result+="<ul><h4>"+datastr[key]+"</h4>";
 			for (item in newdata) {
 				if(newdata[item]['time']==datastr[key]){
-					result+="<li onclick=obj.browse("+newdata[item]['id']+") data-mainid="+main_id+" data-id="+id+" data-lcid="+newdata[item]['id']+">"+newdata[item]['ctitle']+"<a href='#'>X</a></li>";
+					result+="<li onclick=obj.browse("+newdata[item]['id']+") data-mainid="+main_id+" data-id="+id+" data-lcid="+newdata[item]['id']+" data-status="+newdata[item]['status']+">"+newdata[item]['ctitle']+"<a href='#'>X</a></li>";
 				}
 			}
 			result+="</ul>";
@@ -206,7 +205,7 @@ function cdel(){
 			result+="<ul><h4>"+datastr[key]+"</h4>";
 			for (item in newdata) {
 				if(newdata[item]['time']==datastr[key]&&newdata[item]['status']==status){
-					result+="<li onclick=obj.browse("+newdata[item]['id']+") data-mainid="+main_id+" data-id="+id+" data-lcid="+newdata[item]['id']+">"+newdata[item]['ctitle']+"<a href='#'>X</a></li>";
+					result+="<li onclick=obj.browse("+newdata[item]['id']+") data-mainid="+main_id+" data-id="+id+" data-lcid="+newdata[item]['id']+" data-status="+newdata[item]['status']+">"+newdata[item]['ctitle']+"<a href='#'>X</a></li>";
 				}
 			}
 			result+="</ul>";
@@ -253,13 +252,67 @@ function cdel(){
  		if(data!=null){break;}
  	}
  	var result="";
- 	result+="<label for=''><input type='text' class='title' name='title' value='"+data['ctitle']+"'/></label>"
- 	result+="<label for=''><input type='text' class='data' name='data' value='"+data['time']+"'/></label>"
- 	result+="<label for=''><textarea name='' id='' name='conten' cols='30' rows='10' class='edit'>"+data['center']+"</textarea></label>"
+
+ 	console.log(data['status']);
+ 	if(data['status']==1){
+ 		result+="<span>完成</span><span>编辑</span>";
+ 		result+="<label for=''><input type='text' class='title' name='title' value='"+data['ctitle']+"' disabled='disabled'/></label>"
+ 		result+="<label for=''><input type='text' class='data' name='data' value='"+data['time']+"' disabled='disabled'/></label>"
+ 		result+="<label for=''><textarea name='' id='' name='conten' cols='30' rows='10' class='edit' disabled='disabled'>"+data['center']+"</textarea></label>"
+ 	}else {
+ 		result+="<label for=''><input type='text' class='title' name='title' value='"+data['ctitle']+"' disabled='disabled'/></label>"
+ 		result+="<label for=''><input type='text' class='data' name='data' value='"+data['time']+"' disabled='disabled'/></label>"
+ 		result+="<label for=''><textarea name='' id='' name='conten' cols='30' rows='10' class='edit' disabled='disabled'>"+data['center']+"</textarea></label>"
+ 	}
+
+ 	
  	document.getElementsByClassName('right')[0].getElementsByTagName('form')[0].innerHTML=result;
+
+ 	//下面是关于修改和更新数据的。
+ 	if(document.querySelectorAll('.right span').length!=0){
+ 		var editbtn=document.querySelectorAll('.right span')[1];
+ 		editbtn.onclick=function(){
+
+ 			var input=document.querySelectorAll('.right input');
+ 			for(var i=0;i<input.length;i++){
+ 				input[i].disabled="";
+ 			}
+ 			document.querySelector('.right textarea').disabled="";
+ 		}
+ 		var complete=document.querySelector('.right span');
+ 		complete.onclick=function(){
+ 			var cselected=document.querySelector('.center-main .yellow');
+ 			var x_coord,y_coord,z_coord;
+ 			x_coord=cselected.getAttribute('data-mainid');
+ 			y_coord=cselected.getAttribute('data-id');
+ 			z_coord=cselected.getAttribute('data-lcid');
+ 			var search_data=res[x_coord]['subitem'][y_coord]['center'];
+ 			for(var i=0;i<search_data.length;i++){
+ 				if(search_data[i].id==z_coord){
+ 					z_coord=i;
+ 					break;
+ 				}
+ 			}
+ 			
+ 			//使用flag来获取disabled的值。就是判断是否是要修改数据，还是只是要改变状态。
+ 			var inputlist=document.querySelectorAll('.right input');
+ 			var flag=inputlist[0].disabled;//disabled的值为true表示无法修改。
+ 			if(flag){
+ 				res[x_coord]['subitem'][y_coord]['center'][z_coord]['status']=2;
+ 			}else {
+ 				res[x_coord]['subitem'][y_coord]['center'][z_coord]['ctitle']=inputlist[0].value;
+ 				res[x_coord]['subitem'][y_coord]['center'][z_coord]['time']=inputlist[1].value;
+ 				res[x_coord]['subitem'][y_coord]['center'][z_coord]['center']=document.querySelector('.right textarea').value;
+ 			}
+ 			// console.log(res[x_coord]['subitem'][y_coord]['center'][z_coord]);
+ 			res=JSON.stringify(res);
+ 			get('post','testadd.php',{data:res});
+ 			location.reload();
+ 		}
+ 	}
  }
 
-//addlist  先把东西添加到页面，然后再修改数据。
+//addlist  先把东西添加到页面，然后再修改数据。添加新分类函数
 /**
  * [addlist 添加新分类函数]
  */
@@ -284,11 +337,12 @@ function cdel(){
 			res.push(addobj);
 			res=JSON.stringify(res);
 			get('post','testadd.php',{data:res});
+			location.reload();
 		})
 	}else if(selected.tagName=="H4"){
 		var newobj=document.createElement("li");
- 		newobj.innerText=inputstr;
- 		selected.parentElement.append(newobj);
+		newobj.innerText=inputstr;
+		selected.parentElement.append(newobj);
 		var x_coord=selected.getAttribute("data-mainid");
 		// var y_coord=selected.getAttribute("data-id");
 
@@ -302,6 +356,7 @@ function cdel(){
 			res[x_coord]['subitem'].push(addobj);
 			res=JSON.stringify(res);
 			get('post','testadd.php',{data:res});
+			location.reload();
 		})
 	}else if(selected.tagName=="LI"){
 
@@ -351,7 +406,7 @@ function cdel(){
 		get(method,url,bparms,done2);
 	}
 	return object;
- })();
+})();
 
 //一些页面的事件函数。
 (function(){

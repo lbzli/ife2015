@@ -36,8 +36,9 @@ $classify=select('select *
 					</div>
 				</div>
 				<div class="right">
-					<span>完成</span><span>编辑</span>
+					
 					<form action="" method="post">
+						<span>完成</span><span>编辑</span>
 						<label for=""><input type="text" class="title" disabled="disable" /></label>
 						<label for=""><input type="text" class="data" disabled="disable" /></label>
 						<label for=""><textarea name="" id="" cols="30" rows="10" class="edit" disabled="disable"></textarea></label>
@@ -111,6 +112,7 @@ $classify=select('select *
 							res[x_coord]['subitem'][y_coord]['center'].push(addobj);
 							res=JSON.stringify(res);
 							get('post','testadd.php',{data:res});
+							location.reload();
 						})
 					}
 				}
