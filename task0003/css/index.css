@@ -8,9 +8,14 @@ ul {
 a {
 	text-decoration: none;
 }
-
-.yellow {
-	background-color: yellow;
+span {
+	cursor: pointer;
+}
+.hui {
+	background-color: #f2f2f2;
+}
+.white {
+	background-color: #ffffff;
 }
 .list .show {
 	display: block;
@@ -31,7 +36,7 @@ a {
 .head {
 	width: 100%;
 	height: 60px;
-	background-color: hotpink;
+	background-color: #dddddd;
 	border-radius: 5px,0;
 }
 
@@ -51,7 +56,7 @@ a {
 	padding-left: 10px;
 	width: 220px;
 	height: 540px;
-	background-color: pink;
+	background-color: #f2f2f2;
 }
 .left p {
 	line-height: 40px;
@@ -73,7 +78,6 @@ a {
 }
 .list>ul {
 	width: 100%;
-	background-color: deeppink;
 }
 .list ul>li {
 	margin-top: 15px;
@@ -84,7 +88,8 @@ a {
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	background-color: hotpink;
+	background-color: #eeeeee;
+	cursor: pointer;
 }
 
 
@@ -114,13 +119,13 @@ a {
 .center {
 	width: 230px;
 	height: 540px;
-	background-color: hotpink;
+	background-color: #ffffff;
 }
 .center-head {
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
-	background-color: pink;
+	background-color: #eeeeee;
 }
 .center-head span {
 	margin: 0 5px;
@@ -152,7 +157,8 @@ a {
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	background-color: pink;
+	background-color: #eeeeee;
+	cursor: pointer;
 }
 
 /*右边的盒子*/
@@ -168,6 +174,7 @@ a {
 .right span {
 	position: absolute;
 	right: 0;
+	top: 10px;
 	padding: 0 20px;
 	margin: 0 5px;
 	border-radius: 5px;
@@ -185,7 +192,7 @@ a {
 	line-height: 50px;
 	font-size: 18px;
 	font-weight: 700;
-	background-color: deeppink;
+	background-color: #f2f2f2;
 }
 .data {
 	padding-left: 30px;
@@ -193,7 +200,7 @@ a {
 	width: 790px;
 	height: 50px;
 	line-height: 50px;
-	background-color: pink;
+	background-color: #fafaee;
 }
 .edit {
 	padding-top: 30px;
@@ -201,6 +208,6 @@ a {
 	display: block;
 	width: 790px;
 	height: 410px;
-	background-color: red;
+	background-color: #ffffff;
 	border: 0;
 }
